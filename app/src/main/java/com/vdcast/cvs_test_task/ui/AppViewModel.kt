@@ -58,7 +58,8 @@ class AppViewModel @Inject constructor(
             genre = "Action, Animation, Adventure",
             releasedDate = "14 December 2018",
             trailerLink = "http://https//www.youtube.com/watch?v=tg52up16eq0",
-            imageName = "spider_man"
+            imageName = "spider_man",
+            isAddedToWatchlist = true
         ),
         MovieEntity(
             title = "Knives Out",
@@ -69,7 +70,8 @@ class AppViewModel @Inject constructor(
             genre = "Comedy, Crime, Drama",
             releasedDate = "27 November 2019",
             trailerLink = "http://https//www.youtube.com/watch?v=qGqiHJTsRkQ",
-            imageName = "knives_out"
+            imageName = "knives_out",
+            isAddedToWatchlist = true
         ),
         MovieEntity(
             title = "Guardians of the Galaxy",
@@ -116,7 +118,7 @@ class AppViewModel @Inject constructor(
         }
     }
 
-    fun onEven(event: MovieEvent) {
+    fun onEvent(event: MovieEvent) {
         when (event) {
             MovieEvent.SortMoviesByTitle -> {
                 _uiState.update { currentState ->
@@ -130,7 +132,7 @@ class AppViewModel @Inject constructor(
             }
             is MovieEvent.AddMovieToWatchList -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val updatedMovie = event.movie.copy(addedToWatchlist = true)
+                    val updatedMovie = event.movie.copy(isAddedToWatchlist = true)
                     movieDataSource.update(updatedMovie.toMovieEntity())
                 }
             }

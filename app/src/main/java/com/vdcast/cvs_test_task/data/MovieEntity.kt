@@ -15,5 +15,5 @@ data class MovieEntity(
     val releasedDate: String = "",
     val trailerLink: String = "",
     val imageName: String = "",
-    val addedToWatchlist: Boolean = false,
+    val isAddedToWatchlist: Boolean = false,
 )

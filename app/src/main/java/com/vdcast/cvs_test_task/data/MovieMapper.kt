@@ -13,7 +13,7 @@ fun MovieEntity.toMovie(): Movie {
         releasedDate = releasedDate,
         trailerLink = trailerLink,
         imageName = imageName,
-        addedToWatchlist = addedToWatchlist,
+        isAddedToWatchlist = isAddedToWatchlist,
     )
 }
 fun Movie.toMovieEntity(): MovieEntity {
@@ -27,6 +27,6 @@ fun Movie.toMovieEntity(): MovieEntity {
         releasedDate = releasedDate,
         trailerLink = trailerLink,
         imageName = imageName,
-        addedToWatchlist = addedToWatchlist,
+        isAddedToWatchlist = isAddedToWatchlist,
     )
 }
