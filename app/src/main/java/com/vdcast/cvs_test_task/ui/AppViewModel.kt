@@ -7,6 +7,7 @@ import com.vdcast.cvs_test_task.data.toMovieEntity
 import com.vdcast.cvs_test_task.domain.MovieDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-
 
 
 @HiltViewModel
@@ -99,6 +99,7 @@ class AppViewModel @Inject constructor(
     init {
         prefillBalls()
     }
+
     private fun prefillBalls() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -113,28 +114,63 @@ class AppViewModel @Inject constructor(
     }
 
     fun sortByTitle() {
-        _uiState.update { currentState ->
-            currentState.copy(sortingCriteria = SortingCriteria.BY_TITLE)
+        _uiState.update {
+            it.copy(
+                sortingCriteria = SortingCriteria.BY_TITLE
+            )
         }
     }
 
     fun onEvent(event: MovieEvent) {
         when (event) {
             MovieEvent.SortMoviesByTitle -> {
-                _uiState.update { currentState ->
-                    currentState.copy(sortingCriteria = SortingCriteria.BY_TITLE)
+                _uiState.update {
+                    it.copy(
+                        sortingCriteria = SortingCriteria.BY_TITLE
+                    )
                 }
             }
+
             MovieEvent.SortMoviesByReleaseDate -> {
-                _uiState.update { currentState ->
-                    currentState.copy(sortingCriteria = SortingCriteria.BY_RELEASE_DATE)
+                _uiState.update {
+                    it.copy(
+                        sortingCriteria = SortingCriteria.BY_RELEASE_DATE
+                    )
                 }
             }
+
+
+            is MovieEvent.RemoveMovieToWatchList -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val updatedMovie = event.movie.copy(isAddedToWatchlist = false)
+                    movieDataSource.update(updatedMovie.toMovieEntity())
+                    _uiState.update { it.copy(
+                        selectedMovie = updatedMovie,
+                    ) }
+                }
+            }
+
             is MovieEvent.AddMovieToWatchList -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val updatedMovie = event.movie.copy(isAddedToWatchlist = true)
                     movieDataSource.update(updatedMovie.toMovieEntity())
+                    _uiState.update { it.copy(
+                        selectedMovie = updatedMovie,
+                    ) }
                 }
+            }
+
+            is MovieEvent.SelectMovie -> {
+                _uiState.update {
+                    it.copy(
+                        selectedMovie = event.movie,
+                    )
+                }
+                event.navigate()
+            }
+
+            is MovieEvent.DismissMovie -> {
+                event.navigate()
             }
         }
     }

@@ -32,6 +32,7 @@ import com.vdcast.cvs_test_task.domain.Movie
 fun MoviesListItem(
     context: Context,
     movie: Movie,
+    modifier: Modifier = Modifier
 ) {
     val imageId = context.resources.getIdentifier(
         movie.imageName,
@@ -41,7 +42,7 @@ fun MoviesListItem(
 
     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
