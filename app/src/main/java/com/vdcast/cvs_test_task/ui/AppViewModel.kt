@@ -45,7 +45,7 @@ class AppViewModel @Inject constructor(
             duration = "2h 30 min",
             genre = "Action, Sci-Fi",
             releasedDate = "3 September 2020",
-            trailerLink = "http://https//www.youtube.com/watch?v=LdOM0x0XDMo",
+            trailerLink = "https://www.youtube.com/watch?v=LdOM0x0XDMo",
             imageName = "tenet"
         ),
         MovieEntity(
@@ -57,7 +57,7 @@ class AppViewModel @Inject constructor(
             duration = "1h 57min",
             genre = "Action, Animation, Adventure",
             releasedDate = "14 December 2018",
-            trailerLink = "http://https//www.youtube.com/watch?v=tg52up16eq0",
+            trailerLink = "https://www.youtube.com/watch?v=tg52up16eq0",
             imageName = "spider_man",
             isAddedToWatchlist = true
         ),
@@ -69,7 +69,7 @@ class AppViewModel @Inject constructor(
             duration = "2h 10min",
             genre = "Comedy, Crime, Drama",
             releasedDate = "27 November 2019",
-            trailerLink = "http://https//www.youtube.com/watch?v=qGqiHJTsRkQ",
+            trailerLink = "https://www.youtube.com/watch?v=qGqiHJTsRkQ",
             imageName = "knives_out",
             isAddedToWatchlist = true
         ),
@@ -81,7 +81,7 @@ class AppViewModel @Inject constructor(
             duration = "2h 1min",
             genre = "Action, Adventure, Comedy",
             releasedDate = "1 August 2014",
-            trailerLink = "http://https//www.youtube.com/watch?v=d96cjJhvlMA",
+            trailerLink = "https://www.youtube.com/watch?v=d96cjJhvlMA",
             imageName = "guardians_of_the_galaxy"
         ),
         MovieEntity(
@@ -91,7 +91,7 @@ class AppViewModel @Inject constructor(
             duration = "2h 21min",
             genre = "Action, Adventure, Sci-Fi",
             releasedDate = "1 May 2015",
-            trailerLink = "http://https//www.youtube.com/watch?v=tmeOjFno6Do",
+            trailerLink = "https://www.youtube.com/watch?v=tmeOjFno6Do",
             imageName = "avengers"
         ),
     )

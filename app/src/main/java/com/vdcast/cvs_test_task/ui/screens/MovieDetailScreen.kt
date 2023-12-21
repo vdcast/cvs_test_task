@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,17 +46,15 @@ import com.vdcast.cvs_test_task.ui.MovieEvent
 
 @Composable
 fun MovieDetailScreen(
-//    isOpen: Boolean,
     selectedMovie: Movie?,
     onEvent: (MovieEvent) -> Unit,
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
+    val uriHandler = LocalUriHandler.current
 
-//    SideSheetEffect(
-//        visible = isOpen,
-//    ) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -191,7 +190,11 @@ fun MovieDetailScreen(
                     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_xsmall)))
                     OutlinedButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            selectedMovie?.let { movie ->
+                                uriHandler.openUri(movie.trailerLink)
+                            }
+                        },
                     ) {
                         Text(
                             text = stringResource(id = R.string.watch_trailer),
@@ -269,6 +272,5 @@ fun MovieDetailScreen(
                 }
             }
         }
-//    }
     }
 }
