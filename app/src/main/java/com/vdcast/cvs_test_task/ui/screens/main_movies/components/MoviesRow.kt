@@ -1,4 +1,4 @@
-package com.vdcast.cvs_test_task.ui.components
+package com.vdcast.cvs_test_task.ui.screens.main_movies.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

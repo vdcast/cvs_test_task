@@ -7,7 +7,6 @@ import com.vdcast.cvs_test_task.data.toMovieEntity
 import com.vdcast.cvs_test_task.domain.MovieDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -32,7 +31,6 @@ class AppViewModel @Inject constructor(
             movies = movies
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), AppUiState())
-
 
     val prefilledMoviesList = listOf(
         MovieEntity(
@@ -99,7 +97,6 @@ class AppViewModel @Inject constructor(
     init {
         prefillBalls()
     }
-
     private fun prefillBalls() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -112,7 +109,6 @@ class AppViewModel @Inject constructor(
             }
         }
     }
-
     fun sortByTitle() {
         _uiState.update {
             it.copy(
@@ -120,7 +116,6 @@ class AppViewModel @Inject constructor(
             )
         }
     }
-
     fun onEvent(event: MovieEvent) {
         when (event) {
             MovieEvent.SortMoviesByTitle -> {
@@ -139,8 +134,7 @@ class AppViewModel @Inject constructor(
                 }
             }
 
-
-            is MovieEvent.RemoveMovieToWatchList -> {
+            is MovieEvent.RemoveMovieFromWatchList -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val updatedMovie = event.movie.copy(isAddedToWatchlist = false)
                     movieDataSource.update(updatedMovie.toMovieEntity())
@@ -186,5 +180,4 @@ class AppViewModel @Inject constructor(
             }
         }
     }
-
 }

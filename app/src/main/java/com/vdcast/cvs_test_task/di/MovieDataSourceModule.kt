@@ -28,8 +28,6 @@ object LocalRoomModule {
     @Provides
     fun provideMovieDao(database: AppDatabase): MovieDao = database.movieDao()
 
-
-
     @Singleton
     @Provides
     fun provideRepository(

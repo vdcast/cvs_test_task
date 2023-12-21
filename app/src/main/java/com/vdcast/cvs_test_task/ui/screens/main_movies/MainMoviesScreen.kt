@@ -1,13 +1,10 @@
-package com.vdcast.cvs_test_task.ui.screens
+package com.vdcast.cvs_test_task.ui.screens.main_movies
 
-import android.util.Log
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -15,10 +12,6 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,9 +20,9 @@ import androidx.compose.ui.res.stringResource
 import com.vdcast.cvs_test_task.R
 import com.vdcast.cvs_test_task.ui.AppUiState
 import com.vdcast.cvs_test_task.ui.MovieEvent
-import com.vdcast.cvs_test_task.ui.components.MoviesListItem
-import com.vdcast.cvs_test_task.ui.components.MoviesRow
-import com.vdcast.cvs_test_task.ui.components.SortRow
+import com.vdcast.cvs_test_task.ui.screens.main_movies.components.MoviesListItem
+import com.vdcast.cvs_test_task.ui.screens.main_movies.components.MoviesRow
+import com.vdcast.cvs_test_task.ui.screens.main_movies.components.SortRow
 
 @Composable
 fun MainMoviesScreen(
@@ -78,11 +71,9 @@ fun MainMoviesScreen(
                 )
             }
         }
-
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_xsmall)))
         MoviesRow()
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-
         uiState.sortedMovies.forEach { movie ->
             MoviesListItem(
                 context = context,

@@ -10,9 +10,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.vdcast.cvs_test_task.ui.AppViewModel
-import com.vdcast.cvs_test_task.ui.screens.MainMoviesScreen
-import com.vdcast.cvs_test_task.ui.screens.MovieDetailScreen
 import com.vdcast.cvs_test_task.ui.navigation.Routes
+import com.vdcast.cvs_test_task.ui.screens.main_movies.MainMoviesScreen
+import com.vdcast.cvs_test_task.ui.screens.movie_detail.MovieDetailScreen
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -26,7 +26,6 @@ fun AppUi(
     navController: NavHostController = rememberNavController(),
 ) {
     val uiState by appViewModel.uiState.collectAsState()
-
 
     NavHost(
         navController = navController,
@@ -43,7 +42,6 @@ fun AppUi(
         }
         composable(Routes.MovieDetailScreen.route) {
             MovieDetailScreen(
-//                isOpen = uiState.isSelectedMovieDetailOpen,
                 selectedMovie = uiState.selectedMovie,
                 onEvent = appViewModel::onEvent,
                 onBack = {

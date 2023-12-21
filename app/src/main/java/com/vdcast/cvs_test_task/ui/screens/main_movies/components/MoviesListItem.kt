@@ -1,4 +1,4 @@
-package com.vdcast.cvs_test_task.ui.components
+package com.vdcast.cvs_test_task.ui.screens.main_movies.components
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -63,7 +63,6 @@ fun MoviesListItem(
         Column(
             modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.Start,
-//                    verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = "${movie.title} (${movie.releasedDate.takeLast(4)})", // TODO add handling, if last 4 chars aren't year

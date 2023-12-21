@@ -20,7 +20,6 @@ data class AppUiState(
         }
 }
 
-
 enum class SortingCriteria {
     NOT_SORTED,
     BY_TITLE,

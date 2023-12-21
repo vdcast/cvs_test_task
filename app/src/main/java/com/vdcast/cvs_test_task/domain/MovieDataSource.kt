@@ -8,6 +8,5 @@ interface MovieDataSource {
     suspend fun update(movieEntity: MovieEntity)
     suspend fun delete(movieEntity: MovieEntity)
     fun getMovies(): Flow<List<Movie>>
-//    fun getMovies(): Flow<List<MovieEntity>>
     suspend fun getMovieById(id: Int): MovieEntity?
 }
