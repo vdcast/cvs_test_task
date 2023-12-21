@@ -57,7 +57,6 @@ class AppViewModel @Inject constructor(
             releasedDate = "14 December 2018",
             trailerLink = "https://www.youtube.com/watch?v=tg52up16eq0",
             imageName = "spider_man",
-            isAddedToWatchlist = true
         ),
         MovieEntity(
             title = "Knives Out",
@@ -69,7 +68,6 @@ class AppViewModel @Inject constructor(
             releasedDate = "27 November 2019",
             trailerLink = "https://www.youtube.com/watch?v=qGqiHJTsRkQ",
             imageName = "knives_out",
-            isAddedToWatchlist = true
         ),
         MovieEntity(
             title = "Guardians of the Galaxy",
