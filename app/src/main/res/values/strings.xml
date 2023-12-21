@@ -10,4 +10,6 @@
     <string name="details">Details</string>
     <string name="genre">Genre</string>
     <string name="released_date">Released date</string>
+    <string name="by_title">Title</string>
+    <string name="by_released_date">Released Date</string>
 </resources>

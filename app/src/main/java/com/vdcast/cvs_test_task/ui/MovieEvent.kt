@@ -9,4 +9,6 @@ sealed interface MovieEvent {
     data class RemoveMovieToWatchList(val movie: Movie): MovieEvent
     data class SelectMovie(val movie: Movie, val navigate: () -> Unit): MovieEvent
     data class DismissMovie(val navigate: () -> Unit): MovieEvent
+    object OnSortClicked : MovieEvent
+    object DismissSortedMenu : MovieEvent
 }

@@ -172,6 +172,18 @@ class AppViewModel @Inject constructor(
             is MovieEvent.DismissMovie -> {
                 event.navigate()
             }
+
+            MovieEvent.OnSortClicked -> {
+                _uiState.update { it.copy(
+                    isSortedMenuOpen = true
+                ) }
+            }
+
+            MovieEvent.DismissSortedMenu -> {
+                _uiState.update { it.copy(
+                    isSortedMenuOpen = false
+                ) }
+            }
         }
     }
 

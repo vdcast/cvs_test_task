@@ -9,7 +9,8 @@ import java.util.Locale
 data class AppUiState(
     val movies: List<Movie> = emptyList(),
     val selectedMovie: Movie? = null,
-    val sortingCriteria: SortingCriteria = SortingCriteria.NOT_SORTED
+    val sortingCriteria: SortingCriteria = SortingCriteria.NOT_SORTED,
+    val isSortedMenuOpen: Boolean = false,
 ) {
     val sortedMovies: List<Movie>
         get() = when (sortingCriteria) {
