@@ -11,4 +11,5 @@ sealed interface MovieEvent {
     data class DismissMovie(val navigate: () -> Unit): MovieEvent
     object OnSortClicked : MovieEvent
     object DismissSortedMenu : MovieEvent
+    data class SaveSortSettings(val sortSettings: String) : MovieEvent
 }

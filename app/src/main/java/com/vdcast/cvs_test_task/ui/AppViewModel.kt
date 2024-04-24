@@ -1,12 +1,15 @@
 package com.vdcast.cvs_test_task.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vdcast.cvs_test_task.data.MovieEntity
+import com.vdcast.cvs_test_task.data.SharedPrefs
 import com.vdcast.cvs_test_task.data.toMovieEntity
 import com.vdcast.cvs_test_task.domain.MovieDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -20,15 +23,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(
-    private val movieDataSource: MovieDataSource
+    private val movieDataSource: MovieDataSource,
+    private val sharedPrefs: SharedPrefs
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(AppUiState())
     val uiState = combine(
         _uiState,
         movieDataSource.getMovies()
     ) { state, movies ->
+        delay(1000)
         state.copy(
-            movies = movies
+            movies = movies,
+            isMoviesLoaded = true
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), AppUiState())
 
@@ -94,6 +100,7 @@ class AppViewModel @Inject constructor(
 
     init {
         prefillBalls()
+        checkIfSortSettingsSaved()
     }
     private fun prefillBalls() {
         viewModelScope.launch {
@@ -114,6 +121,26 @@ class AppViewModel @Inject constructor(
             )
         }
     }
+
+    fun checkIfSortSettingsSaved() {
+        val saverSortSettings = sharedPrefs.getSettings()
+        Log.d("MYLOG", saverSortSettings)
+        if (saverSortSettings.isNotEmpty()) {
+            val savedSortedCriteria = getSortingCriteriaFromString(saverSortSettings)
+            _uiState.update { it.copy(
+                sortingCriteria = savedSortedCriteria
+            ) }
+        }
+    }
+
+    fun getSortingCriteriaFromString(sortingCriteria: String) : SortingCriteria {
+        return when (sortingCriteria) {
+            "By_Title" -> SortingCriteria.BY_TITLE
+            "By_Release_Date" -> SortingCriteria.BY_RELEASE_DATE
+            else -> SortingCriteria.NOT_SORTED
+        }
+    }
+
     fun onEvent(event: MovieEvent) {
         when (event) {
             MovieEvent.SortMoviesByTitle -> {
@@ -122,6 +149,7 @@ class AppViewModel @Inject constructor(
                         sortingCriteria = SortingCriteria.BY_TITLE
                     )
                 }
+                sharedPrefs.putSettings("By_Title")
             }
 
             MovieEvent.SortMoviesByReleaseDate -> {
@@ -130,6 +158,7 @@ class AppViewModel @Inject constructor(
                         sortingCriteria = SortingCriteria.BY_RELEASE_DATE
                     )
                 }
+                sharedPrefs.putSettings("By_Release_Date")
             }
 
             is MovieEvent.RemoveMovieFromWatchList -> {
@@ -175,6 +204,12 @@ class AppViewModel @Inject constructor(
                 _uiState.update { it.copy(
                     isSortedMenuOpen = false
                 ) }
+            }
+
+            is MovieEvent.SaveSortSettings -> {
+                val sortSettingToSave = event.sortSettings
+                sharedPrefs.putSettings(sortSettingToSave)
+
             }
         }
     }

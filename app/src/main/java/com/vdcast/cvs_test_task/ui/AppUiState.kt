@@ -11,6 +11,7 @@ data class AppUiState(
     val selectedMovie: Movie? = null,
     val sortingCriteria: SortingCriteria = SortingCriteria.NOT_SORTED,
     val isSortedMenuOpen: Boolean = false,
+    val isMoviesLoaded: Boolean = false,
 ) {
     val sortedMovies: List<Movie>
         get() = when (sortingCriteria) {
